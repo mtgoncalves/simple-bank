@@ -1,8 +1,9 @@
-from brownie import Bank, network, accounts, config
+from brownie import Bank
+from .help_scripts import get_account
 
 
 def deploy_bank():
-    account = accounts[0]
+    account = get_account()
     bank = Bank.deploy({"from": account})
 
     first_name, last_name = "Jon", "Snow"
@@ -18,7 +19,7 @@ def deploy_bank():
     print(f"Withdrawing {withdraw_amount} ...")
     transaction = bank.withdraw(withdraw_amount, {"from": account})
     transaction.wait(1)
-    balance = bank.showBalance({"from": account});
+    balance = bank.showBalance({"from": account})
     print(f"Withdrew {withdraw_amount}. Current balance is {balance}.")
 
     deposit_amount = 70
